@@ -1,0 +1,141 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+body {
+	font-family: sans-serif;
+	font-size: 20px;
+	background: #132440;
+	color: #313131; /*#313131 */
+	padding: 30px;
+	margin: 20px;
+}
+
+.wrapper {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+.inwrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.chartc_head {
+    padding: 0;
+    position: fixed;
+    top: 0;
+    width: 1200px;
+    height: 80px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+}
+
+.chartc_container {
+    clear: both;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 60px;
+	padding-bottom: 40px;
+}
+.main_full {
+    width: 100%;
+    text-align: left;
+    background-color: #fff;
+    margin-top: 32px;
+    padding: 20px;
+    display: block;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.main_full img{
+	width: 100%;
+}
+
+.chart{
+	width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.description {
+ width:100%;
+ border-collapse: separate; 
+ border: none;
+ border-spacing: 0px 10px ;
+}
+
+.description tbody td, 
+.description tfoot td {
+ text-align: center;
+}
+
+/* 上部ヘッダー（背景：パステルカラー） */
+.description thead th {
+ color: #FFF; 
+ font-weight: bold;
+ background:#E91E63;
+}
+
+/* 上部ヘッダーの丸み */
+.description thead th:nth-child(2) {
+ border-radius: 10px 0 0 0;
+}
+.description thead th:last-child  {
+ border-radius: 0 10px  0 0;
+}
+
+.description th,
+.description td {
+ border: 0 none !important;
+}
+
+/* １行ずつ色変更　不要なら削除 even:奇数行　odd:偶数行 */
+.description tr:nth-child(even) td { 
+ background: #fff9fc; 
+} 
+.description tr:nth-child(odd) td {
+ background: #fff9ff; 
+}
+
+/* ヘッダーセル先頭・ボディ項目・フッター項目 */
+.description tbody th,
+.description tfoot th,
+.description thead th:first-child {
+ background:none;
+ color:#666;
+ font-weight: bold;
+ line-height:4.5em;
+ text-align:right;
+}
+
+
+/*（共通）　項目の多いテーブルの幅を調整*/
+@media (max-width: 767px) {
+ .col6t th,
+ .col6t td{
+ font-size:0.4em;
+ padding: 10px 0px;
+ }
+ .col5t th,
+ .col5t td{
+ font-size:0.5em;
+ padding: 10px 0px;
+ }
+ .col4t th,
+ .col4t td{
+ font-size:0.7em;
+ padding: 10px 5px;
+ }
+ .col3t th,
+ .col3t td{
+ font-size:0.8em;
+ padding: 10px 10px;
+ }
+}
