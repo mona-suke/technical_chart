@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--   jQueryライブラリ読み込み -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!--  /jQueryライブラリ読み込み -->
+<title>ローソク足テスト</title>
+<link href="charts_style.css" rel="stylesheet" type="text/css">
+</head>
+	
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>
+	<script type="text/javascript" src="demo_echarts.js"></script>
+
+<body>
+
+	<div class="wrapper">
+		<div class="inwrapper">
+			<div class="chartc_head">
+
+			<a href="https://www.japanmetal.com/">
+				<img src="images/web_logo.png" style="width:70%;">
+			</a>
+
+			</div>
+			<div class= "chartc_container">
+				<div class = "main_full">
+					<a href="https://sangyopress.sakura.ne.jp/charts/test_charts.php">
+						<img src="images/cs_ti.png">
+					</a>
+
+					<div class="chart">
+						<div id="technicalchart" style="width:100%;height:500px;"></div>
+						<div id="osci" style="width:100%;height:1000px;"></div>
+						<div class="description" >
+							<table>
+								<thead><tr><th>トレンド</th><th>ボラティリティ</th><th>状態</th></tr></thead>
+								<tbody>
+									<tr><td>上昇</td><td>低い</td><td>安定上昇</td></tr>
+									<tr><td>上昇</td><td>高い</td><td>急騰</td></tr>
+									<tr><td>下降</td><td>低い</td><td>安定下降</td></tr>
+									<tr><td>下降</td><td>高い</td><td>急落</td></tr>
+								</tbody>
+							</table>
+						</div>
+					</div>				
+				</div>
+
+			</div>
+		
+		</div>
+	</div>
+
+	<script>
+
+		// チャート描画
+		//make_chart(datas);
+		const dataCount = 1700;
+		const data = generateOHLC(dataCount);
+		const pmi_datas = generatepmi(dataCount);
+		const close_d= data.map(d => d.close);
+		const ma5 = mv_av(close_d,5);
+		const ma20 = mv_av(close_d,20);
+		//console.log(data);
+		//console.log(ma5);
+		//console.log(ma20);
+		technical_chart(data,ma5,ma20,pmi_datas);
+		osci_chart(data,ma5,ma20);
+
+
+		function generateOHLC(count) {
+		   let rawdata=[];
+			let xValue = new Date(2000, 0, 1);
+			let baseValue = Math.random() * 12000;
+			let boxVals = new Array(4);
+			let dayRange = 12;
+			for (let i = 0; i < count; i++) {
+				 let data = {};
+				baseValue = baseValue + Math.random() * 20 - 10;
+				for (let j = 0; j < 4; j++) {
+					boxVals[j] = (Math.random() - 0.5) * dayRange + baseValue;
+				}
+				boxVals.sort();
+				let openIdx = Math.round(Math.random() * 3);
+				let closeIdx = Math.round(Math.random() * 2);
+				if (closeIdx === openIdx) {
+					closeIdx++;
+				}
+				// ['open', 'close', 'lowest', 'highest']
+
+				data["data_id"]=i;
+				data["date"]= echarts.format.formatTime("yyyy-MM-dd",(xValue));
+				data["open"]=Number(boxVals[openIdx].toFixed(2));
+				data["high"]=Number(boxVals[3].toFixed(2));
+				data["low"]=Number(boxVals[0].toFixed(2));
+				data["close"]=Number(boxVals[closeIdx].toFixed(2));
+
+				rawdata.push(data);
+				xValue.setDate(xValue.getDate()+1);
+			}
+			return rawdata;
+
+		}
+		function generatepmi(count){
+			let rawdata=[];
+			let xValue = new Date(2000, 0, 30);
+			
+			for (let i =0; i< count;i++){
+				let data={};
+				data["date"]=echarts.format.formatTime(
+						"yyyy-MM-dd",
+						(xValue)
+					);
+				data["value"]=Math.random() * 100;
+				rawdata.push(data);
+				xValue.setDate(xValue.getMonth()+1);
+			}
+			return rawdata;
+		}
+		function mv_av(datas,period){
+			var ma=[];
+			var count = datas.length;
+
+			for(let k =0; k < period-1; k++){
+				ma.push("-");
+			}
+			for (let i= 0 ; i < count - period + 1; i++){
+				var sum = 0;
+				for (let j = 0 ; j< period; j++){
+					sum += datas[i+j];
+				}
+			ma.push(sum / period);
+			}
+			return ma;
+		}
+
+	</script>
+</body>
+
+</html>
