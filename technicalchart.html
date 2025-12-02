@@ -54,16 +54,13 @@
 	<script>
 
 		// チャート描画
-		//make_chart(datas);
 		const dataCount = 1700;
 		const data = generateOHLC(dataCount);
 		const pmi_datas = generatepmi(dataCount);
 		const close_d= data.map(d => d.close);
 		const ma5 = mv_av(close_d,5);
 		const ma20 = mv_av(close_d,20);
-		//console.log(data);
-		//console.log(ma5);
-		//console.log(ma20);
+
 		technical_chart(data,ma5,ma20,pmi_datas);
 		osci_chart(data,ma5,ma20);
 
@@ -103,7 +100,7 @@
 		}
 		function generatepmi(count){
 			let rawdata=[];
-			let xValue = new Date(2000, 0, 30);
+			let xValue = new Date(2000, 0, 20);
 			
 			for (let i =0; i< count;i++){
 				let data={};
@@ -139,3 +136,4 @@
 
 
 </html>
+
